@@ -1,0 +1,30 @@
+# static website
+{$CADDY_DOMAIN_NAME} {
+    root /home/olivaw/www
+    # pull site automatically
+    git github.com/BenTheElder/site {
+        hook /git-hook-site {$CADDY_GIT_HOOK_KEY_SITE}
+    }
+    # pull olivaw automatically
+    git github.com/BenTheElder/olivaw /home/olivaw/olivaw {
+        hook /git-hook-olivaw {$CADDY_GIT_HOOK_KEY_OLIVAW}
+    }
+    # use https and gzip
+    tls {$CLOUDFLARE_EMAIL}
+    tls {
+        dns cloudflare
+    }
+    gzip
+}
+
+# olivaw
+olivaw.{$CADDY_DOMAIN_NAME} {
+    root /home/olivaw/olivaw/site
+    proxy /api localhost:8080
+    # use https and gzip
+    tls {$CLOUDFLARE_EMAIL}
+    tls {
+        dns cloudflare
+    }
+    gzip
+}
