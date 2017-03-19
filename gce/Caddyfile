@@ -17,10 +17,18 @@
     gzip
 }
 
+# no www
+www.{$CADDY_DOMAIN_NAME} {
+    redir https://{$CADDY_DOMAIN_NAME}
+    tls {$CLOUDFLARE_EMAIL}
+    tls {
+        dns cloudflare
+    }
+}
+
 # olivaw
 olivaw.{$CADDY_DOMAIN_NAME} {
-    root /home/olivaw/olivaw/site
-    proxy /api localhost:8080
+    proxy / localhost:8080
     # use https and gzip
     tls {$CLOUDFLARE_EMAIL}
     tls {
