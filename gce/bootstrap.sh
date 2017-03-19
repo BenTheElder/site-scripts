@@ -13,7 +13,7 @@ else
 fi
 
 # fetch olivaw
-cd /homw/olivaw/olivaw
+cd /home/olivaw/olivaw
 git pull
 cd /home/olivaw
 chown -R olivaw:olivaw /home/olivaw
@@ -30,7 +30,7 @@ pip install --upgrade pip virtualenv
 
 # install app dependencies
 virtualenv /home/olivaw/env
-/home/olivaw/env/bin/pip install -r /home/olivaw/requirements.txt
+/home/olivaw/env/bin/pip install -r /home/olivaw/olivaw/requirements.txt
 
 # install caddy
 wget -O caddy_linux_amd_custom.tar.gz "https://caddyserver.com/download/build?os=linux&arch=amd64&features=git%2Ccloudflare"
@@ -58,7 +58,7 @@ After=network.target
 [Service]
 User=olivaw
 Group=olivaw
-WorkingDirectory=/home/olivaw
+WorkingDirectory=/home/olivaw/olivaw
 Environment=VIRTUAL_ENV=/home/olivaw/env/olivaw
 Environment=PATH=/home/olivaw/env/bin
 Environment=SECRETS_PATH=/home/olivaw/secrets.cfg
@@ -80,8 +80,8 @@ Wants=network-online.target systemd-networkd-wait-online.service
 
 [Service]
 Restart=always
-StartLimitInterval=86400
-StartLimitBurst=5
+;StartLimitInterval=86400
+;StartLimitBurst=5
 
 ; User and group the process will run as.
 User=olivaw
@@ -93,7 +93,7 @@ Environment=CADDYPATH=/etc/ssl/caddy
 $CADDY_ENV
 
 ; Always set "-root" to something safe in case it gets forgotten in the Caddyfile.
-ExecStart=/usr/local/bin/caddy -log stdout -agree=true -conf=/home/olivaw/site-scripts/gcp/Caddyfile -root=/var/tmp $CADDY_EMAIL_ARG
+ExecStart=/usr/local/bin/caddy -log stdout -agree=true -conf=/home/olivaw/site-scripts/gce/Caddyfile -root=/var/tmp $CADDY_EMAIL_ARG
 ExecReload=/bin/kill -USR1 $MAINPID
 
 ; Limit the number of file descriptors; see \`man systemd.exec\` for more limit settings.

@@ -3,9 +3,6 @@
 set -v
 export HOME=/root
 
-# get project id
-PROJECTID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
-
 # add user for application
 useradd -m -d /home/olivaw olivaw
 

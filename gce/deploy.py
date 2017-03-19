@@ -44,7 +44,7 @@ def main():
     os.chdir(project_path)
     # make sure user agrees to run this
     choice = input((
-        "Use this at your own risk this will use gcloud to deploy.\n"
+        "Use this at your own risk; this will use gcloud to deploy.\n"
         "Please confirm 'yes' or 'no': "
     ))
     if choice == 'no':
