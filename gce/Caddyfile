@@ -5,16 +5,14 @@
     git github.com/BenTheElder/site {
         hook /git-hook-site {$CADDY_GIT_HOOK_KEY_SITE}
     }
-    # pull olivaw automatically
-    git github.com/BenTheElder/olivaw /home/olivaw/olivaw {
-        hook /git-hook-olivaw {$CADDY_GIT_HOOK_KEY_OLIVAW}
-    }
     # use https and gzip
     tls {$CLOUDFLARE_EMAIL}
     tls {
         dns cloudflare
     }
     gzip
+    # serve pages without extension
+    ext .html
 }
 
 # no www
@@ -26,13 +24,3 @@ www.{$CADDY_DOMAIN_NAME} {
     }
 }
 
-# olivaw
-olivaw.{$CADDY_DOMAIN_NAME} {
-    proxy / localhost:8080
-    # use https and gzip
-    tls {$CLOUDFLARE_EMAIL}
-    tls {
-        dns cloudflare
-    }
-    gzip
-}
