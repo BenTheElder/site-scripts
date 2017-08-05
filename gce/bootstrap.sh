@@ -33,7 +33,7 @@ virtualenv /home/olivaw/env
 /home/olivaw/env/bin/pip install -r /home/olivaw/olivaw/requirements.txt
 
 # install caddy
-wget -O caddy_linux_amd_custom.tar.gz "https://caddyserver.com/download/build?os=linux&arch=amd64&features=git%2Ccloudflare"
+wget -O caddy_linux_amd_custom.tar.gz "https://caddyserver.com/download/linux/amd64?plugins=http.git,tls.dns.cloudflare"
 systemctl stop caddy
 tar xf caddy_linux_amd_custom.tar.gz
 mv ./caddy /usr/local/bin/caddy
