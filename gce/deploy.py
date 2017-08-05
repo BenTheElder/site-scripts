@@ -71,7 +71,7 @@ def main(args):
         '--machine-type=f1-micro \\'
         '--scopes userinfo-email,cloud-platform \\'
         '--metadata-from-file startup-script=%s \\'
-        '--zone us-central1-f \\'
+        '--zone us-west1-b \\'
         '--tags http-server'
     ) % (startup))
     # open ports 80 and 443
