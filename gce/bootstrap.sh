@@ -23,7 +23,7 @@ chown -R olivaw:olivaw /home/olivaw/.[!.]*
 apt-get update
 apt-get install -yq \
     git build-essential supervisor python python-dev python-pip libffi-dev \
-    libssl-dev virtualenv
+    libssl-dev virtualenv pandoc
 
 # setup python
 pip install --upgrade pip virtualenv
