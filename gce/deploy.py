@@ -33,11 +33,9 @@ def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
 
-def run_and_check(cmd, env=None, timeout=None):
-    if env is None:
-        env = os.environ.copy()
+def run_and_check(cmd):
     """runs cmd with system and prints an error if the command fails"""
-    res = subprocess.Popen(cmd, stdout=sys.stdout, stderr=sys.stderr, env=env).Wait(timeout=None)
+    res = os.system(cmd)
     if res != 0:
         eprint("Command failed!")
         eprint(cmd)
