@@ -45,7 +45,7 @@ def main():
     cloudflare_key = get_setting("CLOUDFLARE_API_KEY", "cloudflare api key")
     caddy_domain_name = get_setting("DOMAIN_NAME", "domain name")
     git_hook_key = get_setting("GIT_HOOK_KEY_SITE", "git hook (site) key")
-    git_hook_key2 = input("GIT_HOOK_KEY_OLIVAW", "git hook (olivaw) key")
+    git_hook_key2 = get_setting("GIT_HOOK_KEY_OLIVAW", "git hook (olivaw) key")
     caddy_env = (
         'Environment=CADDY_DOMAIN_NAME=%s\n'
         'Environment=CADDY_GIT_HOOK_KEY_SITE=%s\n'
