@@ -3,6 +3,10 @@
 set -v
 export HOME=/root
 
+# only root can read this
+sudo chown root:root $0
+sudo chmod 700 $0
+
 # add user for application
 useradd -m -d /home/olivaw olivaw
 
