@@ -20,22 +20,28 @@ Use at your own risk.
 from __future__ import print_function
 import sys
 import os
+import subprocess
 try:
     input = raw_input
 except NameError:
     pass
+
 
 # http://stackoverflow.com/questions/5574702/how-to-print-to-stderr-in-python
 def eprint(*args, **kwargs):
     """like print_function but to stderr"""
     print(*args, file=sys.stderr, **kwargs)
 
-def run_and_check(cmd):
+
+def run_and_check(cmd, env=None):
+    if env is None:
+        env = os.environ.copy()
     """runs cmd with system and prints an error if the command fails"""
-    res = os.system(cmd)
+    res = subprocess.Popen(cmd, stdout=sys.stdout, stderr=sys.stderr, env=env)
     if res != 0:
         eprint("Command failed!")
         eprint(cmd)
+
 
 def main(args):
     """deploys BenTheElder's site to GCE"""
@@ -56,6 +62,9 @@ def main(args):
     elif choice != 'yes':
         print("Please respond with 'yes' or 'no'; Aborting")
         return
+    startup = 'gce/startup.sh'
+    if 'STARTUP' in os.environ:
+        startup = os.environ['STARTUP']
     # create instance
     run_and_check((
         'gcloud compute instances create olivaw-instance \\'
@@ -63,10 +72,10 @@ def main(args):
         '--image-project=ubuntu-os-cloud \\'
         '--machine-type=f1-micro \\'
         '--scopes userinfo-email,cloud-platform \\'
-        '--metadata-from-file startup-script=gce/startup.sh \\'
+        '--metadata-from-file startup-script=%s \\'
         '--zone us-central1-f \\'
         '--tags http-server'
-    ))
+    ) % (startup))
     # open ports 80 and 443
     run_and_check((
         'gcloud compute firewall-rules create default-allow-http \\'
