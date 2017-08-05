@@ -37,16 +37,19 @@ def run_and_check(cmd):
         eprint("Command failed!")
         eprint(cmd)
 
-def main():
+def main(args):
     """deploys BenTheElder's site to GCE"""
     self_path = os.path.dirname(__file__)
     project_path = os.path.join(self_path, "..")
     os.chdir(project_path)
-    # make sure user agrees to run this
-    choice = input((
-        "Use this at your own risk; this will use gcloud to deploy.\n"
-        "Please confirm 'yes' or 'no': "
-    ))
+    if '-y' in args:
+        choice = "yes"
+    else:
+        # make sure user agrees to run this
+        choice = input((
+            "Use this at your own risk; this will use gcloud to deploy.\n"
+            "Please confirm 'yes' or 'no': "
+        ))
     if choice == 'no':
         print("Aborting on 'no'")
         return
@@ -82,4 +85,4 @@ def main():
     print("Done.")
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv)
