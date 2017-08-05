@@ -4,6 +4,7 @@
     # pull site automatically
     git github.com/BenTheElder/site {
         hook /git-hook-site {$CADDY_GIT_HOOK_KEY_SITE}
+        then /home/olivaw/www/blog/update.py
     }
     # use https and gzip
     tls {$CLOUDFLARE_EMAIL}

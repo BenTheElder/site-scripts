@@ -25,17 +25,26 @@ try:
 except NameError:
     pass
 
+
+def get_setting(env_key, description):
+    if env_key in os.environ:
+        print("Got %s from env." % (description))
+        return os.environ[env_key]
+    else:
+        return input("%s: " % (description))
+
+
 def main():
     """interactively run gce bootstrap script with environment variables set"""
     self_path = os.path.dirname(__file__)
     project_path = os.path.join(self_path, "..")
     os.chdir(project_path)
     print("enter environment variable values")
-    email = input("email: ")
-    cloudflare_key = input("cloudflare api key: ")
-    caddy_domain_name = input("domain name: ")
-    git_hook_key = input("git hook (site) key: ")
-    git_hook_key2 = input("git hook (olivaw) key: ")
+    email = get_setting("EMAIL", "email")
+    cloudflare_key = get_setting("CLOUDFLARE_API_KEY", "cloudflare api key")
+    caddy_domain_name = get_setting("DOMAIN_NAME", "domain name")
+    git_hook_key = get_setting("GIT_HOOK_KEY_SITE", "git hook (site) key")
+    git_hook_key2 = input("GIT_HOOK_KEY_OLIVAW", "git hook (olivaw) key")
     caddy_env = (
         'Environment=CADDY_DOMAIN_NAME=%s\n'
         'Environment=CADDY_GIT_HOOK_KEY_SITE=%s\n'
