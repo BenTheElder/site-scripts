@@ -62,7 +62,7 @@ def main(args):
         return
     startup = 'gce/startup.sh'
     if 'STARTUP' in os.environ:
-        startup = os.environ['startup']
+        startup = os.environ['STARTUP']
     # create instance
     run_and_check((
         'gcloud compute instances create olivaw-instance \\'
